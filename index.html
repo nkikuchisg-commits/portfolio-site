@@ -5,9 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="菊池｜業務Webアプリ・Webサイト制作。予約管理・見積り計算などの業務効率化ツールから、成果につながるLPまで。AIツール活用でスピーディーに制作。初回相談無料。">
   <title>菊池 | 業務Webアプリ・Webサイト制作</title>
+  <link rel="canonical" href="https://nkikuchisg-commits.github.io/portfolio-site/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="菊池 | 業務Webアプリ・Webサイト制作">
+  <meta property="og:description" content="予約管理・見積り計算などの業務Webアプリから、お店や事務所のLPまで。公開中のデモ7作品を掲載。初回相談無料。">
+  <meta property="og:url" content="https://nkikuchisg-commits.github.io/portfolio-site/">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;600&display=swap');
-
     :root {
       --dark:       #0A1628;
       --navy:       #1E3A5F;
@@ -235,7 +244,7 @@
       color: var(--text-mid);
     }
 
-    /* ヒーライト側：実績カード */
+    /* ヒーロー右側：実績カード */
     .hero-right { position: relative; z-index: 1; }
     .hero-card-wrap {
       display: grid;
@@ -862,9 +871,6 @@
     }
     @media (max-width: 960px) {
       section { padding: 4.5rem 1.8rem; }
-      #nav { padding: 0 1.8rem; }
-      .nav-links { display: none; }
-      .nav-mobile-cta { display: block; }
       #hero { padding: 64px 1.8rem 0; min-height: auto; padding-bottom: 4rem; }
       .hero-inner { grid-template-columns: 1fr; gap: 3rem; }
       .hero-right { display: none; }
@@ -878,7 +884,6 @@
     }
     @media (max-width: 600px) {
       .hero-title { font-size: 1.9rem; }
-      .works-grid { grid-template-columns: 1fr; }
       .flow-steps { grid-template-columns: 1fr; }
       .footer-inner { flex-direction: column; align-items: flex-start; }
     }
@@ -1100,10 +1105,10 @@
         <div class="work-body">
           <span class="work-genre">学習アプリ</span>
           <div class="work-title">ポーカーレンジトレーナー</div>
-          <p class="work-desc">戦略判断を全239問のクイズで反復練習できる学習アプリ。出題ロジックとデータ設計を重視して開発。クイズ・診断系コンテンツの制作にも応用できます。</p>
+          <p class="work-desc">戦略判断を全600問のクイズで反復練習できる学習アプリ。出題ロジックとデータ設計を重視して開発。クイズ・診断系コンテンツの制作にも応用できます。</p>
           <div class="work-tags">
             <span class="work-tag">クイズ形式</span>
-            <span class="work-tag">全239問</span>
+            <span class="work-tag">全600問</span>
             <span class="work-tag">データ設計</span>
           </div>
           <div class="work-links">
@@ -1359,20 +1364,20 @@
       <h2 class="sec-title">まずは無料相談から</h2>
       <div class="divider"></div>
       <p class="sec-desc">「こんなツール作れますか？」「いくらですか？」どんな質問でもOKです。<br>内容を確認のうえ、できる限り早くご返信します。</p>
-      <div class="contact-form fade-up">
+      <form class="contact-form fade-up" id="contact-form">
         <div class="form-row">
           <div class="form-group">
-            <label>お名前<span>*</span></label>
-            <input type="text" placeholder="山田 花子">
+            <label for="cf-name">お名前<span>*</span></label>
+            <input type="text" id="cf-name" name="name" placeholder="山田 花子" required>
           </div>
           <div class="form-group">
-            <label>メールアドレス<span>*</span></label>
-            <input type="email" placeholder="example@email.com">
+            <label for="cf-email">メールアドレス<span>*</span></label>
+            <input type="email" id="cf-email" name="email" placeholder="example@email.com" required>
           </div>
         </div>
         <div class="form-group">
-          <label>ご相談内容<span>*</span></label>
-          <select>
+          <label for="cf-topic">ご相談内容<span>*</span></label>
+          <select id="cf-topic" name="topic" required>
             <option value="">選択してください</option>
             <option>業務ツール・Webアプリを作りたい</option>
             <option>LP・ホームページを作りたい</option>
@@ -1382,12 +1387,13 @@
           </select>
         </div>
         <div class="form-group">
-          <label>詳細・ご要望（任意）</label>
-          <textarea placeholder="業種・今の業務のお困りごと・ご予算など、なんでもお気軽に"></textarea>
+          <label for="cf-detail">詳細・ご要望（任意）</label>
+          <textarea id="cf-detail" name="detail" placeholder="業種・今の業務のお困りごと・ご予算など、なんでもお気軽に"></textarea>
         </div>
-        <button class="form-submit">無料相談を送信する →</button>
-        <p class="form-note">内容を確認のうえ、順次ご返信します。<br>しつこい勧誘や営業はいたしません。</p>
-      </div>
+        <button type="submit" class="form-submit">無料相談を送信する →</button>
+        <p class="form-note" id="cf-sent" hidden>お使いのメールソフトが起動します。起動しない場合は、お手数ですが下記アドレスへ直接ご連絡ください。</p>
+        <p class="form-note">送信ボタンでメールソフトが起動し、入力内容がそのままメールになります。<br>内容を確認のうえ、順次ご返信します。しつこい勧誘や営業はいたしません。</p>
+      </form>
       <div class="contact-alt">
         <div class="contact-alt-item">📧 n.kikuchi.sg@gmail.com</div>
         <div class="contact-alt-item">⏱ できる限り早くご返信します</div>
@@ -1412,33 +1418,38 @@
 </footer>
 
 <script>
-  // フェードイン
+  // フェードイン（about-visual 内のスキルバーも同時に発火）
   const fadeEls = document.querySelectorAll('.fade-up');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
         e.target.classList.add('visible');
-        // スキルバーアニメーション
-        e.target.querySelectorAll?.('.tool-bar').forEach(bar => bar.classList.add('visible'));
+        e.target.querySelectorAll('.tool-bar').forEach(bar => bar.classList.add('visible'));
         observer.unobserve(e.target);
       }
     });
   }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
   fadeEls.forEach(el => observer.observe(el));
 
-  // スキルバー（about-visual が visible になったとき）
-  const aboutVisual = document.querySelector('.about-visual');
-  if (aboutVisual) {
-    const barObserver = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.querySelectorAll('.tool-bar').forEach(bar => bar.classList.add('visible'));
-          barObserver.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.3 });
-    barObserver.observe(aboutVisual);
-  }
+  // お問い合わせ（静的サイトのため、入力内容をメールソフトに引き渡す）
+  document.getElementById('contact-form').addEventListener('submit', (ev) => {
+    ev.preventDefault();
+    const name = document.getElementById('cf-name').value.trim();
+    const email = document.getElementById('cf-email').value.trim();
+    const topic = document.getElementById('cf-topic').value;
+    const detail = document.getElementById('cf-detail').value.trim();
+    const body = [
+      'お名前: ' + name,
+      'ご連絡先: ' + email,
+      'ご相談内容: ' + topic,
+      '',
+      detail
+    ].join('\n');
+    document.getElementById('cf-sent').hidden = false;
+    location.href = 'mailto:n.kikuchi.sg@gmail.com'
+      + '?subject=' + encodeURIComponent('【無料相談】' + name + ' 様より')
+      + '&body=' + encodeURIComponent(body);
+  });
 
   // FAQ
   document.querySelectorAll('.faq-q').forEach(btn => {
