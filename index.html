@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="菊池｜業務Webアプリ・Webサイト制作。予約管理・見積り計算などの業務効率化ツールから、成果につながるLPまで。AIツール活用でスピーディーに制作。初回相談無料。">
+  <title>菊池 | 業務Webアプリ・Webサイト制作</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;600&display=swap');
+
+    :root {
+      --dark:       #0A1628;
+      --navy:       #1E3A5F;
+      --blue:       #2563EB;
+      --blue-light: #3B82F6;
+      --bg:         #F8FAFC;
+      --bg-dark:    #F1F5F9;
+      --white:      #FFFFFF;
+      --text:       #1A202C;
+      --text-mid:   #4A5568;
+      --text-light: #94A3B8;
+      --border:     #E2E8F0;
+      --success:    #10B981;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: var(--white);
+      color: var(--text);
+      overflow-x: hidden;
+      font-weight: 400;
+    }
+
+    /* ===== NAV ===== */
+    #nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 300;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      overflow: hidden;
+      padding: 0 3rem;
+      background: rgba(255,255,255,0.95);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+    }
+    .nav-logo {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--dark);
+      text-decoration: none;
+      letter-spacing: 2px;
+      flex-shrink: 0;
+    }
+    .nav-logo span {
+      color: var(--blue);
+      font-size: 0.6rem;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 400;
+      letter-spacing: 3px;
+      display: block;
+      margin-top: -2px;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-mid);
+      font-size: 0.82rem;
+      letter-spacing: 0.5px;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--blue); }
+    .nav-contact {
+      padding: 0.5rem 1.4rem;
+      background: var(--blue);
+      color: var(--white) !important;
+      border-radius: 6px;
+      font-weight: 500 !important;
+      transition: background 0.2s !important;
+    }
+    .nav-contact:hover { background: var(--blue-light) !important; }
+    .nav-mobile-cta {
+      display: none;
+      padding: 0.45rem 1rem;
+      background: var(--blue);
+      color: var(--white);
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 500;
+    }
+
+    /* ===== HERO ===== */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      background: var(--white);
+      padding: 64px 3rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+    /* 背景の幾何学装飾 */
+    #hero::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      right: -10%;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(37,99,235,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    #hero::after {
+      content: '';
+      position: absolute;
+      bottom: 5%;
+      left: -5%;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(37,99,235,0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .hero-left { position: relative; z-index: 1; }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(37,99,235,0.08);
+      color: var(--blue);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 2px;
+      padding: 0.4rem 1rem;
+      border-radius: 100px;
+      border: 1px solid rgba(37,99,235,0.2);
+      margin-bottom: 1.8rem;
+    }
+    .hero-badge::before { content: '●'; font-size: 0.4rem; }
+    .hero-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 600;
+      color: var(--dark);
+      line-height: 1.4;
+      margin-bottom: 1.4rem;
+      word-break: keep-all;
+    }
+    .hero-title em {
+      font-style: normal;
+      color: var(--blue);
+      position: relative;
+    }
+    .hero-title em::after {
+      content: '';
+      position: absolute;
+      bottom: 2px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: rgba(37,99,235,0.2);
+      border-radius: 2px;
+    }
+    .hero-desc {
+      font-size: 0.95rem;
+      color: var(--text-mid);
+      line-height: 1.9;
+      font-weight: 300;
+      margin-bottom: 2.5rem;
+      max-width: 440px;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+    .btn-primary {
+      display: inline-block;
+      padding: 0.9rem 2rem;
+      background: var(--blue);
+      color: var(--white);
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--blue-light); transform: translateY(-2px); }
+    .btn-secondary {
+      display: inline-block;
+      padding: 0.9rem 2rem;
+      border: 1.5px solid var(--border);
+      color: var(--text-mid);
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 400;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--blue); color: var(--blue); }
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+    .hero-tag {
+      padding: 0.3rem 0.8rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 0.72rem;
+      color: var(--text-mid);
+    }
+
+    /* ヒーライト側：実績カード */
+    .hero-right { position: relative; z-index: 1; }
+    .hero-card-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .hero-stat-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 16px rgba(10,22,40,0.06);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .hero-stat-card:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(10,22,40,0.1); }
+    .hero-stat-card.accent {
+      background: var(--dark);
+      border-color: var(--dark);
+      grid-column: span 2;
+    }
+    .stat-icon { font-size: 1.4rem; margin-bottom: 0.6rem; }
+    .stat-num {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--dark);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    .hero-stat-card.accent .stat-num { color: var(--white); }
+    .stat-label {
+      font-size: 0.72rem;
+      color: var(--text-light);
+      letter-spacing: 0.5px;
+    }
+    .hero-stat-card.accent .stat-label { color: rgba(255,255,255,0.55); }
+    .stat-quote {
+      font-size: 0.9rem;
+      color: var(--white);
+      line-height: 1.7;
+      font-weight: 300;
+      font-family: 'Noto Serif JP', serif;
+    }
+
+    /* ===== SECTION 共通 ===== */
+    section { padding: 6rem 3rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .sec-label {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 4px;
+      color: var(--blue);
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+    .sec-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 600;
+      color: var(--dark);
+      line-height: 1.5;
+      word-break: keep-all;
+    }
+    .sec-desc {
+      font-size: 0.9rem;
+      color: var(--text-mid);
+      line-height: 1.9;
+      font-weight: 300;
+      margin-top: 0.8rem;
+      max-width: 540px;
+    }
+    .sec-header { margin-bottom: 3.5rem; }
+    .divider {
+      width: 32px;
+      height: 2px;
+      background: var(--blue);
+      border-radius: 2px;
+      margin: 1rem 0;
+    }
+
+    /* ===== ABOUT ===== */
+    #about { background: var(--bg); }
+    .about-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .about-visual {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2.5rem;
+      box-shadow: 0 4px 24px rgba(10,22,40,0.06);
+    }
+    .about-profile {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .about-avatar {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, var(--navy), var(--blue-light));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      flex-shrink: 0;
+    }
+    .about-name {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 0.3rem;
+    }
+    .about-role {
+      font-size: 0.78rem;
+      color: var(--blue);
+      font-weight: 500;
+      letter-spacing: 1px;
+    }
+    .about-tools {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+    .tool-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.82rem;
+    }
+    .tool-name { color: var(--text-mid); }
+    .tool-bar-wrap {
+      flex: 1;
+      height: 4px;
+      background: var(--bg);
+      border-radius: 2px;
+      margin: 0 1rem;
+      overflow: hidden;
+    }
+    .tool-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--blue), var(--blue-light));
+      border-radius: 2px;
+      transform-origin: left;
+      transform: scaleX(0);
+      transition: transform 1s ease;
+    }
+    .tool-bar.visible { transform: scaleX(1); }
+    .tool-pct { color: var(--text-light); font-size: 0.75rem; min-width: 32px; text-align: right; }
+
+    .about-points { display: flex; flex-direction: column; gap: 1.8rem; }
+    .about-point { display: flex; gap: 1.2rem; align-items: flex-start; }
+    .point-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(37,99,235,0.1);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .point-content h3 {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--dark);
+      margin-bottom: 0.3rem;
+    }
+    .point-content p {
+      font-size: 0.83rem;
+      color: var(--text-mid);
+      line-height: 1.8;
+      font-weight: 300;
+    }
+
+    /* ===== WORKS ===== */
+    #works { background: var(--white); }
+    .works-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+    .work-card {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+      background: var(--white);
+    }
+    .work-card:hover { transform: translateY(-5px); box-shadow: 0 16px 48px rgba(10,22,40,0.12); }
+    .work-thumb {
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .wt-1 { background: linear-gradient(135deg, #2C1810 0%, #6B4C35 50%, #D4A853 100%); }
+    .wt-2 { background: linear-gradient(135deg, #3D2B35 0%, #C47E9A 60%, #E8A0B4 100%); }
+    .wt-3 { background: linear-gradient(135deg, #111E38 0%, #1B2F55 50%, #2A4270 100%); }
+    .wt-4 { background: linear-gradient(135deg, #0A2618 0%, #1A4A32 50%, #2F7A52 100%); }
+    .work-thumb-label {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 1.5rem;
+    }
+    .work-thumb-icon { font-size: 2.5rem; display: block; margin-bottom: 0.6rem; }
+    .work-thumb-name {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.95);
+      letter-spacing: 1px;
+    }
+    .work-thumb-en {
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 3px;
+      margin-top: 3px;
+    }
+    .work-body { padding: 1.5rem 1.8rem; }
+    .work-genre {
+      display: inline-block;
+      padding: 0.25rem 0.7rem;
+      background: rgba(37,99,235,0.08);
+      color: var(--blue);
+      border-radius: 100px;
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      margin-bottom: 0.7rem;
+    }
+    .work-title {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--dark);
+      margin-bottom: 0.5rem;
+    }
+    .work-desc {
+      font-size: 0.82rem;
+      color: var(--text-mid);
+      line-height: 1.8;
+      font-weight: 300;
+    }
+    .work-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 1rem;
+    }
+    .work-tag {
+      padding: 0.2rem 0.6rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 0.68rem;
+      color: var(--text-light);
+    }
+    .works-cat {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--dark);
+      padding-left: 0.8rem;
+      border-left: 3px solid var(--blue);
+      margin-bottom: 1.4rem;
+    }
+    .works-grid + .works-cat { margin-top: 3.5rem; }
+    .work-links { margin-top: 1.2rem; }
+    .work-demo {
+      display: inline-block;
+      padding: 0.55rem 1.3rem;
+      background: var(--blue);
+      color: var(--white);
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .work-demo:hover { background: var(--blue-light); transform: translateY(-1px); }
+    .wt-5 { background: linear-gradient(135deg, #042F2E 0%, #0D9488 55%, #5EEAD4 100%); }
+    .wt-6 { background: linear-gradient(135deg, #172554 0%, #2563EB 55%, #93C5FD 100%); }
+    .wt-7 { background: linear-gradient(135deg, #2E1065 0%, #7C3AED 55%, #C4B5FD 100%); }
+
+    /* ===== SERVICES ===== */
+    #services { background: var(--bg); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .service-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      transition: box-shadow 0.3s, transform 0.3s;
+    }
+    .service-card:hover { box-shadow: 0 8px 32px rgba(10,22,40,0.08); transform: translateY(-3px); }
+    .service-card.highlight {
+      border-color: var(--blue);
+      background: linear-gradient(135deg, rgba(37,99,235,0.03) 0%, var(--white) 100%);
+    }
+    .service-icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(37,99,235,0.1);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 1.2rem;
+    }
+    .service-card.highlight .service-icon { background: var(--blue); }
+    .service-name {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--dark);
+      margin-bottom: 0.5rem;
+    }
+    .service-desc {
+      font-size: 0.83rem;
+      color: var(--text-mid);
+      line-height: 1.8;
+      font-weight: 300;
+      margin-bottom: 1.2rem;
+    }
+    .service-price {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--dark);
+    }
+    .service-price span { font-size: 0.8rem; font-weight: 400; color: var(--text-light); font-family: 'Noto Sans JP', sans-serif; }
+    .service-card.highlight .service-price { color: var(--blue); }
+    .service-note {
+      font-size: 0.72rem;
+      color: var(--text-light);
+      margin-top: 0.3rem;
+    }
+    .recommended {
+      display: inline-block;
+      padding: 0.2rem 0.7rem;
+      background: var(--blue);
+      color: var(--white);
+      font-size: 0.65rem;
+      font-weight: 500;
+      border-radius: 100px;
+      letter-spacing: 1px;
+      margin-bottom: 0.8rem;
+    }
+
+    /* ===== FLOW ===== */
+    #flow { background: var(--white); }
+    .flow-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      position: relative;
+    }
+    .flow-steps::before {
+      content: '';
+      position: absolute;
+      top: 24px;
+      left: 12%;
+      right: 12%;
+      height: 1px;
+      background: linear-gradient(90deg, var(--blue) 0%, var(--border) 100%);
+    }
+    .flow-step { text-align: center; padding: 0 0.5rem; position: relative; }
+    .flow-dot {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+      font-size: 1.2rem;
+      position: relative;
+      z-index: 1;
+      transition: border-color 0.3s;
+    }
+    .flow-step:first-child .flow-dot {
+      background: var(--blue);
+      border-color: var(--blue);
+    }
+    .flow-step-num {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      width: 18px;
+      height: 18px;
+      background: var(--dark);
+      color: var(--white);
+      border-radius: 50%;
+      font-size: 0.6rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .flow-title { font-size: 0.88rem; font-weight: 500; color: var(--dark); margin-bottom: 0.4rem; }
+    .flow-desc { font-size: 0.75rem; color: var(--text-light); line-height: 1.6; }
+
+    /* ===== FAQ ===== */
+    #faq { background: var(--bg); }
+    .faq-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .faq-item {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .faq-q {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.3rem 1.5rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      gap: 1rem;
+    }
+    .faq-q-text {
+      font-size: 0.87rem;
+      font-weight: 500;
+      color: var(--dark);
+      line-height: 1.5;
+    }
+    .faq-q-text::before { content: 'Q. '; color: var(--blue); font-weight: 700; }
+    .faq-toggle {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      color: var(--blue);
+      flex-shrink: 0;
+      transition: transform 0.3s, background 0.3s;
+    }
+    .faq-item.open .faq-toggle { transform: rotate(45deg); background: var(--blue); color: var(--white); }
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.3s;
+      padding: 0 1.5rem;
+    }
+    .faq-item.open .faq-a { max-height: 180px; padding: 0 1.5rem 1.3rem; }
+    .faq-a p {
+      font-size: 0.83rem;
+      color: var(--text-mid);
+      line-height: 1.9;
+      font-weight: 300;
+      padding-left: 1rem;
+      border-left: 2px solid var(--blue);
+    }
+
+    /* ===== CONTACT ===== */
+    #contact { background: var(--dark); }
+    .contact-wrap {
+      max-width: 680px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .contact-wrap .sec-label { color: rgba(37,99,235,0.8); }
+    .contact-wrap .sec-title { color: var(--white); }
+    .contact-wrap .divider { margin: 1rem auto; }
+    .contact-wrap .sec-desc { color: rgba(255,255,255,0.55); margin: 0 auto 3rem; }
+
+    .contact-form {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 2.5rem;
+      text-align: left;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-bottom: 1rem;
+    }
+    .form-group label {
+      font-size: 0.73rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.5px;
+    }
+    .form-group label span { color: #60A5FA; margin-left: 3px; }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      color: var(--white);
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 0.85rem;
+      outline: none;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(255,255,255,0.25); }
+    .form-group select option { background: var(--dark); }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--blue-light);
+      background: rgba(255,255,255,0.1);
+    }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .form-submit {
+      width: 100%;
+      padding: 1rem;
+      background: var(--blue);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      margin-top: 0.5rem;
+    }
+    .form-submit:hover { background: var(--blue-light); transform: translateY(-1px); }
+    .form-note {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.3);
+      text-align: center;
+      margin-top: 1rem;
+      line-height: 1.6;
+    }
+    .contact-alt {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .contact-alt-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.45);
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #060E1A;
+      padding: 2rem 3rem;
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-logo {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.6);
+      letter-spacing: 2px;
+    }
+    .footer-copy { font-size: 0.7rem; color: rgba(255,255,255,0.25); }
+    .footer-nav { display: flex; gap: 1.5rem; list-style: none; }
+    .footer-nav a { font-size: 0.72rem; color: rgba(255,255,255,0.3); text-decoration: none; transition: color 0.2s; }
+    .footer-nav a:hover { color: rgba(255,255,255,0.6); }
+
+    /* ===== FADE IN ===== */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .fade-up:nth-child(2) { transition-delay: 0.1s; }
+    .fade-up:nth-child(3) { transition-delay: 0.2s; }
+    .fade-up:nth-child(4) { transition-delay: 0.3s; }
+
+    /* ===== RESPONSIVE ===== */
+    /* ナビは早めにモバイル表示へ切り替え（横並びメニューが詰まってロゴと重なるのを防ぐ） */
+    @media (max-width: 1024px) {
+      #nav { padding: 0 1.8rem; }
+      .nav-links { display: none; }
+      .nav-mobile-cta { display: block; }
+    }
+    @media (max-width: 960px) {
+      section { padding: 4.5rem 1.8rem; }
+      #nav { padding: 0 1.8rem; }
+      .nav-links { display: none; }
+      .nav-mobile-cta { display: block; }
+      #hero { padding: 64px 1.8rem 0; min-height: auto; padding-bottom: 4rem; }
+      .hero-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .hero-right { display: none; }
+      .about-layout { grid-template-columns: 1fr; gap: 3rem; }
+      .works-grid { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: 1fr; }
+      .flow-steps { grid-template-columns: 1fr 1fr; gap: 2rem; }
+      .flow-steps::before { display: none; }
+      .faq-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .hero-title { font-size: 1.9rem; }
+      .works-grid { grid-template-columns: 1fr; }
+      .flow-steps { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#hero" class="nav-logo">
+    菊池
+    <span>WEB CREATOR</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">強み</a></li>
+    <li><a href="#works">制作実績</a></li>
+    <li><a href="#services">料金</a></li>
+    <li><a href="#flow">流れ</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#contact" class="nav-contact">無料相談する</a></li>
+  </ul>
+  <a href="#contact" class="nav-mobile-cta">相談する →</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner container">
+    <div class="hero-left">
+      <div class="hero-badge">AIを活用したWeb制作</div>
+      <h1 class="hero-title">
+        <em>業務を楽にするWebアプリ</em>を、<br>
+        素早く、丁寧に。
+      </h1>
+      <p class="hero-desc">
+        予約管理・見積り計算などの業務Webアプリから、
+        お店や事務所のランディングページまで。最新のAIツールを活用し、
+        ヒアリングから納品まで一貫して丁寧に対応します。
+      </p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary">無料相談を申し込む →</a>
+        <a href="#works" class="btn-secondary">制作実績を見る</a>
+      </div>
+      <div class="hero-tags">
+        <span class="hero-tag">📅 予約・顧客管理</span>
+        <span class="hero-tag">🧮 見積り・料金計算</span>
+        <span class="hero-tag">📊 集計・業務効率化</span>
+        <span class="hero-tag">🖥 LP・ホームページ</span>
+        <span class="hero-tag">📱 その他もご相談OK</span>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-card-wrap">
+        <div class="hero-stat-card">
+          <div class="stat-icon">🖥</div>
+          <div class="stat-num">7<small style="font-size:1rem">作品</small></div>
+          <div class="stat-label">公開中のデモ</div>
+        </div>
+        <div class="hero-stat-card">
+          <div class="stat-icon">⚡</div>
+          <div class="stat-num">AI<small style="font-size:1rem">活用</small></div>
+          <div class="stat-label">スピード制作</div>
+        </div>
+        <div class="hero-stat-card">
+          <div class="stat-icon">💬</div>
+          <div class="stat-num">迅速</div>
+          <div class="stat-label">返信を心がけています</div>
+        </div>
+        <div class="hero-stat-card">
+          <div class="stat-icon">💰</div>
+          <div class="stat-num">¥0</div>
+          <div class="stat-label">初回相談料</div>
+        </div>
+        <div class="hero-stat-card accent">
+          <p class="stat-quote">「依頼してよかった」と<br>思っていただける仕事を。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-layout">
+      <div>
+        <p class="sec-label">ABOUT</p>
+        <h2 class="sec-title">AIと人の力で、<br>期待を超える仕上がりへ</h2>
+        <div class="divider"></div>
+        <p class="sec-desc">最新のAIツール「Claude Code」を活用し、コストを抑えながらスピーディーに制作。業務Webアプリからランディングページまで、品質を大切にお届けします。</p>
+        <div class="about-points" style="margin-top: 2.5rem;">
+          <div class="about-point fade-up">
+            <div class="point-icon">🤖</div>
+            <div class="point-content">
+              <h3>AIツール活用で圧倒的なスピード</h3>
+              <p>最新のAI技術で制作時間を短縮。その分、ヒアリングや調整に時間をかけ、ご要望に的確に応えます。</p>
+            </div>
+          </div>
+          <div class="about-point fade-up">
+            <div class="point-icon">🎯</div>
+            <div class="point-content">
+              <h3>「業務がどう楽になるか」から設計</h3>
+              <p>見た目だけでなく、入力の手間・ミス防止・集計の自動化など、実際の使い勝手と成果を重視します。</p>
+            </div>
+          </div>
+          <div class="about-point fade-up">
+            <div class="point-icon">💬</div>
+            <div class="point-content">
+              <h3>こまめな共有・丁寧な対応</h3>
+              <p>できる限り迅速な返信を心がけ、進捗を随時共有。不安なくお任せいただける関係を大切にします。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="about-visual fade-up">
+        <div class="about-profile">
+          <div class="about-avatar">👨‍💻</div>
+          <div>
+            <div class="about-name">菊池</div>
+            <div class="about-role">WEB CREATOR / FREELANCER</div>
+          </div>
+        </div>
+        <div class="about-tools">
+          <div class="tool-row">
+            <span class="tool-name">業務Webアプリ開発</span>
+            <div class="tool-bar-wrap"><div class="tool-bar" style="width:92%"></div></div>
+            <span class="tool-pct">92%</span>
+          </div>
+          <div class="tool-row">
+            <span class="tool-name">LP・Webサイト制作</span>
+            <div class="tool-bar-wrap"><div class="tool-bar" style="width:95%"></div></div>
+            <span class="tool-pct">95%</span>
+          </div>
+          <div class="tool-row">
+            <span class="tool-name">レスポンシブ対応</span>
+            <div class="tool-bar-wrap"><div class="tool-bar" style="width:95%"></div></div>
+            <span class="tool-pct">95%</span>
+          </div>
+          <div class="tool-row">
+            <span class="tool-name">フォーム・計算・予約機能</span>
+            <div class="tool-bar-wrap"><div class="tool-bar" style="width:90%"></div></div>
+            <span class="tool-pct">90%</span>
+          </div>
+          <div class="tool-row">
+            <span class="tool-name">GitHub Pages・Netlify公開</span>
+            <div class="tool-bar-wrap"><div class="tool-bar" style="width:90%"></div></div>
+            <span class="tool-pct">90%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORKS -->
+<section id="works">
+  <div class="container">
+    <div class="sec-header">
+      <p class="sec-label">WORKS</p>
+      <h2 class="sec-title">制作実績</h2>
+      <div class="divider"></div>
+      <p class="sec-desc">業務ツールからランディングページまで。すべて実際に触って試せるデモを公開しています。</p>
+    </div>
+    <h3 class="works-cat">業務ツール・Webアプリ</h3>
+    <div class="works-grid">
+      <div class="work-card fade-up">
+        <div class="work-thumb wt-5">
+          <div class="work-thumb-label">
+            <span class="work-thumb-icon">📅</span>
+            <div class="work-thumb-name">Reserve Manager</div>
+            <div class="work-thumb-en">BOOKING TOOL</div>
+          </div>
+        </div>
+        <div class="work-body">
+          <span class="work-genre">業務ツール / 予約管理</span>
+          <div class="work-title">店舗向け 予約管理ツール</div>
+          <p class="work-desc">カレンダー・スタッフ別タイムライン・ダブルブッキング防止・売上集計・CSV出力。サロンや教室の予約業務をブラウザだけで管理できます。</p>
+          <div class="work-tags">
+            <span class="work-tag">カレンダーUI</span>
+            <span class="work-tag">タイムライン</span>
+            <span class="work-tag">売上集計</span>
+            <span class="work-tag">CSV出力</span>
+          </div>
+          <div class="work-links">
+            <a class="work-demo" href="https://nkikuchisg-commits.github.io/reservation-tool/" target="_blank" rel="noopener">デモを見る ↗</a>
+          </div>
+        </div>
+      </div>
+      <div class="work-card fade-up">
+        <div class="work-thumb wt-6">
+          <div class="work-thumb-label">
+            <span class="work-thumb-icon">🧮</span>
+            <div class="work-thumb-name">見積りシミュレーター</div>
+            <div class="work-thumb-en">ESTIMATE TOOL</div>
+          </div>
+        </div>
+        <div class="work-body">
+          <span class="work-genre">業務ツール / 見積り計算</span>
+          <div class="work-title">リフォーム見積りシミュレーター</div>
+          <p class="work-desc">工事項目を選ぶだけで概算費用を自動計算。御見積書の印刷／PDF・CSV出力・ローン月々試算・ダークモード対応。料金表の差し替えで他業種にも展開できます。</p>
+          <div class="work-tags">
+            <span class="work-tag">自動計算</span>
+            <span class="work-tag">見積書印刷</span>
+            <span class="work-tag">CSV出力</span>
+            <span class="work-tag">ダークモード</span>
+          </div>
+          <div class="work-links">
+            <a class="work-demo" href="https://nkikuchisg-commits.github.io/estimate-simulator/" target="_blank" rel="noopener">デモを見る ↗</a>
+          </div>
+        </div>
+      </div>
+      <div class="work-card fade-up">
+        <div class="work-thumb wt-7">
+          <div class="work-thumb-label">
+            <span class="work-thumb-icon">♠️</span>
+            <div class="work-thumb-name">Poker Range Trainer</div>
+            <div class="work-thumb-en">TRAINING APP</div>
+          </div>
+        </div>
+        <div class="work-body">
+          <span class="work-genre">学習アプリ</span>
+          <div class="work-title">ポーカーレンジトレーナー</div>
+          <p class="work-desc">戦略判断を全239問のクイズで反復練習できる学習アプリ。出題ロジックとデータ設計を重視して開発。クイズ・診断系コンテンツの制作にも応用できます。</p>
+          <div class="work-tags">
+            <span class="work-tag">クイズ形式</span>
+            <span class="work-tag">全239問</span>
+            <span class="work-tag">データ設計</span>
+          </div>
+          <div class="work-links">
+            <a class="work-demo" href="https://nkikuchisg-commits.github.io/poker-range-trainer/" target="_blank" rel="noopener">デモを見る ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h3 class="works-cat">ランディングページ</h3>
+    <div class="works-grid">
+      <div class="work-card fade-up">
+        <div class="work-thumb wt-1">
+          <div class="work-thumb-label">
+            <span class="work-thumb-icon">☕</span>
+            <div class="work-thumb-name">Noka Coffee</div>
+            <div class="work-thumb-en">SPECIALTY COFFEE</div>
+          </div>
+        </div>
+        <div class="work-body">
+          <span class="work-genre">飲食・カフェ</span>
+          <div class="work-title">自家焙煎カフェのランディングページ</div>
+          <p class="work-desc">高級感のあるブラウン×ゴールドのカラーで「こだわり」を表現。3Dカルーセルやヒーロー動画など、インタラクティブな演出で魅力を伝えます。</p>
+          <div class="work-tags">
+            <span class="work-tag">HTML/CSS</span>
+            <span class="work-tag">JavaScript</span>
+            <span class="work-tag">レスポンシブ</span>
+            <span class="work-tag">予約フォーム</span>
+          </div>
+          <div class="work-links">
+            <a class="work-demo" href="https://nkikuchisg-commits.github.io/noka-coffee-lp/" target="_blank" rel="noopener">デモを見る ↗</a>
+          </div>
+        </div>
+      </div>
+      <div class="work-card fade-up">
+        <div class="work-thumb wt-2">
+          <div class="work-thumb-label">
+            <span class="work-thumb-icon">✂️</span>
+            <div class="work-thumb-name">Fleur Hair</div>
+            <div class="work-thumb-en">HAIR SALON</div>
+          </div>
+        </div>
+        <div class="work-body">
+          <span class="work-genre">美容・ヘアサロン</span>
+          <div class="work-title">ヘアサロンのランディングページ</div>
+          <p class="work-desc">ローズピンクで女性らしさを演出。4ステップの予約フォーム・インタラクティブカレンダー・クレジットカード入力UXを実装。</p>
+          <div class="work-tags">
+            <span class="work-tag">HTML/CSS</span>
+            <span class="work-tag">予約システム</span>
+            <span class="work-tag">カレンダーUI</span>
+            <span class="work-tag">マルチページ</span>
+          </div>
+          <div class="work-links">
+            <a class="work-demo" href="https://nkikuchisg-commits.github.io/fleur-hair-lp/" target="_blank" rel="noopener">デモを見る ↗</a>
+          </div>
+        </div>
+      </div>
+      <div class="work-card fade-up">
+        <div class="work-thumb wt-3">
+          <div class="work-thumb-label">
+            <span class="work-thumb-icon">⚖️</span>
+            <div class="work-thumb-name">みらい税理士事務所</div>
+            <div class="work-thumb-en">TAX OFFICE</div>
+          </div>
+        </div>
+        <div class="work-body">
+          <span class="work-genre">士業・専門家</span>
+          <div class="work-title">税理士事務所のランディングページ</div>
+          <p class="work-desc">ネイビー×ゴールドで「信頼感・誠実さ」を表現。FAQアコーディオン・3段階料金プラン・お問い合わせフォームを実装。</p>
+          <div class="work-tags">
+            <span class="work-tag">HTML/CSS</span>
+            <span class="work-tag">FAQアコーディオン</span>
+            <span class="work-tag">料金比較</span>
+            <span class="work-tag">お問い合わせ</span>
+          </div>
+          <div class="work-links">
+            <a class="work-demo" href="https://nkikuchisg-commits.github.io/zeirishi-lp/" target="_blank" rel="noopener">デモを見る ↗</a>
+          </div>
+        </div>
+      </div>
+      <div class="work-card fade-up">
+        <div class="work-thumb wt-4">
+          <div class="work-thumb-label">
+            <span class="work-thumb-icon">🏠</span>
+            <div class="work-thumb-name">ネクストライフ不動産</div>
+            <div class="work-thumb-en">REAL ESTATE</div>
+          </div>
+        </div>
+        <div class="work-body">
+          <span class="work-genre">不動産</span>
+          <div class="work-title">不動産会社のランディングページ</div>
+          <p class="work-desc">ダークグリーン×オレンジで「安定感とアクティブさ」を表現。物件検索ボックス・物件カード6件・エリアマップを実装。</p>
+          <div class="work-tags">
+            <span class="work-tag">HTML/CSS</span>
+            <span class="work-tag">物件カード</span>
+            <span class="work-tag">検索UI</span>
+            <span class="work-tag">エリアマップ</span>
+          </div>
+          <div class="work-links">
+            <a class="work-demo" href="https://nkikuchisg-commits.github.io/realestate-lp/" target="_blank" rel="noopener">デモを見る ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <div class="sec-header">
+      <p class="sec-label">PRICING</p>
+      <h2 class="sec-title">料金の目安</h2>
+      <div class="divider"></div>
+      <p class="sec-desc">内容に合わせて無料でお見積りします。ご予算に応じた調整もお気軽にご相談ください。</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card highlight fade-up">
+        <div class="recommended">イチオシ</div>
+        <div class="service-icon">🧮</div>
+        <div class="service-name">業務Webアプリ開発</div>
+        <p class="service-desc">見積り計算・予約管理・集計ツールなど、日々の業務を楽にするWebアプリ。Excelや紙での管理からの移行もご相談ください。</p>
+        <div class="service-price">¥49,800<span>〜（税込）</span></div>
+        <div class="service-note">納品目安：1〜2週間程度</div>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon">📄</div>
+        <div class="service-name">LP・ホームページ制作</div>
+        <p class="service-desc">1ページ完結のランディングページやシンプルなホームページ。構成のご提案から公開まで対応します。</p>
+        <div class="service-price">¥19,800<span>〜（税込）</span></div>
+        <div class="service-note">納品目安：3〜7日程度</div>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon">🔧</div>
+        <div class="service-name">機能追加・カスタマイズ</div>
+        <p class="service-desc">納品後の項目変更・機能追加・他業種向けの作り替えなど。既存サイトの部分的な改修もお受けします。</p>
+        <div class="service-price">お見積り<span>（内容に応じて）</span></div>
+        <div class="service-note">まずは内容をお聞かせください</div>
+      </div>
+    </div>
+    <p style="text-align:center; font-size:0.78rem; color:var(--text-light); margin-top:1.5rem;">※ 上記はすべて目安です。内容によって変わる場合があります。まずはご相談ください。</p>
+  </div>
+</section>
+
+<!-- FLOW -->
+<section id="flow">
+  <div class="container">
+    <div class="sec-header" style="text-align:center;">
+      <p class="sec-label">PROCESS</p>
+      <h2 class="sec-title">ご依頼の流れ</h2>
+      <div class="divider" style="margin: 1rem auto;"></div>
+      <p class="sec-desc" style="margin: 0 auto;">シンプル4ステップ。お見積りまでは無料です。</p>
+    </div>
+    <div class="flow-steps">
+      <div class="flow-step fade-up">
+        <div class="flow-dot">
+          💬<span class="flow-step-num">1</span>
+        </div>
+        <div class="flow-title">無料ヒアリング</div>
+        <div class="flow-desc">業種・ターゲット・希望デザインをお聞きします。Zoom・チャットどちらでも</div>
+      </div>
+      <div class="flow-step fade-up">
+        <div class="flow-dot">
+          📋<span class="flow-step-num">2</span>
+        </div>
+        <div class="flow-title">お見積り・契約</div>
+        <div class="flow-desc">内容と金額をご確認いただき、ご納得いただけたら契約・着手金のお支払いへ</div>
+      </div>
+      <div class="flow-step fade-up">
+        <div class="flow-dot">
+          🎨<span class="flow-step-num">3</span>
+        </div>
+        <div class="flow-title">制作・確認</div>
+        <div class="flow-desc">確認用URLを共有しながら進行。気になる点は遠慮なくお知らせください</div>
+      </div>
+      <div class="flow-step fade-up">
+        <div class="flow-dot">
+          🚀<span class="flow-step-num">4</span>
+        </div>
+        <div class="flow-title">納品・公開</div>
+        <div class="flow-desc">ファイル一式を納品。Netlifyでの公開サポートも承ります</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="container">
+    <div class="sec-header">
+      <p class="sec-label">FAQ</p>
+      <h2 class="sec-title">よくある質問</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="faq-grid">
+      <div class="faq-item">
+        <button class="faq-q">
+          <span class="faq-q-text">Excelや紙で管理している業務をWebアプリにできますか？</span>
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-a"><p>はい、得意分野です。見積り計算・予約管理・集計など、今の運用をお聞きしたうえで「入力が楽になる形」をご提案します。まずは現状をそのままお聞かせください。</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">
+          <span class="faq-q-text">どんな業種でも対応できますか？</span>
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-a"><p>はい。LPのほか、予約管理・見積り計算・集計などの業務ツールも業種を問わず承ります。実績にない業種でもまずはご相談ください。</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">
+          <span class="faq-q-text">納品後の修正には対応してもらえますか？</span>
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-a"><p>納品時の確認で見つかった軽微な修正（文言・色味の調整など）は無償で対応しています。構成の変更や機能追加は、内容に応じてお見積りのうえ対応します。</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">
+          <span class="faq-q-text">素材（写真・文章）がなくても依頼できますか？</span>
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-a"><p>はい。写真はフリー素材を使用、文章はヒアリングをもとにAIで作成も可能です。ご予算に応じてご相談ください。</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">
+          <span class="faq-q-text">支払い方法は？</span>
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-a"><p>銀行振込対応です。着手前に50%、納品後に残り50%のお支払いをお願いしています。</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">
+          <span class="faq-q-text">完成したLPを自分でネットに公開できますか？</span>
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-a"><p>Netlify（無料）を使えば簡単に公開できます。ご希望の方は公開サポートも行います。URLが決まればすぐに使えます。</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">
+          <span class="faq-q-text">急ぎの依頼は対応できますか？</span>
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-a"><p>内容によりますが、シンプルな構成であれば数日でお渡しできる場合もあります。お急ぎの場合はまず納期のご希望をお聞かせください。</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-wrap">
+      <p class="sec-label">CONTACT</p>
+      <h2 class="sec-title">まずは無料相談から</h2>
+      <div class="divider"></div>
+      <p class="sec-desc">「こんなツール作れますか？」「いくらですか？」どんな質問でもOKです。<br>内容を確認のうえ、できる限り早くご返信します。</p>
+      <div class="contact-form fade-up">
+        <div class="form-row">
+          <div class="form-group">
+            <label>お名前<span>*</span></label>
+            <input type="text" placeholder="山田 花子">
+          </div>
+          <div class="form-group">
+            <label>メールアドレス<span>*</span></label>
+            <input type="email" placeholder="example@email.com">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>ご相談内容<span>*</span></label>
+          <select>
+            <option value="">選択してください</option>
+            <option>業務ツール・Webアプリを作りたい</option>
+            <option>LP・ホームページを作りたい</option>
+            <option>既存サイトのリニューアル</option>
+            <option>料金・納期を確認したい</option>
+            <option>その他</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>詳細・ご要望（任意）</label>
+          <textarea placeholder="業種・今の業務のお困りごと・ご予算など、なんでもお気軽に"></textarea>
+        </div>
+        <button class="form-submit">無料相談を送信する →</button>
+        <p class="form-note">内容を確認のうえ、順次ご返信します。<br>しつこい勧誘や営業はいたしません。</p>
+      </div>
+      <div class="contact-alt">
+        <div class="contact-alt-item">📧 n.kikuchi.sg@gmail.com</div>
+        <div class="contact-alt-item">⏱ できる限り早くご返信します</div>
+        <div class="contact-alt-item">💰 相談：完全無料</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">菊池 <span style="font-size:0.65rem; font-family:'Noto Sans JP'; font-weight:300; color:rgba(255,255,255,0.3); letter-spacing:2px;">WEB CREATOR</span></div>
+    <ul class="footer-nav">
+      <li><a href="#about">強み</a></li>
+      <li><a href="#works">実績</a></li>
+      <li><a href="#services">料金</a></li>
+      <li><a href="#contact">お問い合わせ</a></li>
+    </ul>
+    <p class="footer-copy">© 2026 菊池 All Rights Reserved.</p>
+  </div>
+</footer>
+
+<script>
+  // フェードイン
+  const fadeEls = document.querySelectorAll('.fade-up');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        // スキルバーアニメーション
+        e.target.querySelectorAll?.('.tool-bar').forEach(bar => bar.classList.add('visible'));
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+  fadeEls.forEach(el => observer.observe(el));
+
+  // スキルバー（about-visual が visible になったとき）
+  const aboutVisual = document.querySelector('.about-visual');
+  if (aboutVisual) {
+    const barObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.querySelectorAll('.tool-bar').forEach(bar => bar.classList.add('visible'));
+          barObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    barObserver.observe(aboutVisual);
+  }
+
+  // FAQ
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+</script>
+</body>
+</html>
